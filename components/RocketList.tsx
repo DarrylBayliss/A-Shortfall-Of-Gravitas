@@ -10,12 +10,11 @@ const blurhash =
 export default function RocketList({rockets, onItemClick} : {rockets: Rocket[], onItemClick: () => void}) {
 
   const RocketItem = ({rocket, onItemClick} : {rocket: Rocket, onItemClick: () => void }) => {
-    // const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
-    // const color = item.id === selectedId ? 'white' : 'black';
     return (
       <Pressable
         onPress={() => onItemClick}>
-          <Image style={styles.item}
+          <View style={styles.item}>
+          <Image style={styles.image}
             source={rocket. flickr_images[0]}
             placeholder={{ blurhash }}
             contentFit="fill"
@@ -23,6 +22,7 @@ export default function RocketList({rockets, onItemClick} : {rockets: Rocket[], 
           <View style={styles.textColumn}>
               <Text> {rocket.name} </Text>
               <Text> {rocket.country} </Text>
+          </View>
           </View>
       </Pressable>
     );
@@ -46,12 +46,16 @@ const styles = StyleSheet.create({
       marginTop: StatusBar.currentHeight || 0,
     },
     item: {
-      padding: 20,
-      marginVertical: 8,
+      flex: 1,
+      flexDirection: 'row'
+    },
+    image: {
+      padding: 30,
+      marginVertical: 16,
       marginHorizontal: 16,
     },
     textColumn: {
-        flex: 1,
-        paddingStart: 10
+      marginVertical: 16,
+      marginHorizontal: 16,
     }
   });

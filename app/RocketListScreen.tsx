@@ -1,6 +1,6 @@
 import React, { useEffect, useState} from 'react';
 import { View, ActivityIndicator, StyleSheet } from "react-native";
-import RocketList, { Rocket } from '@/components/RocketList';
+import RocketList from '@/components/RocketList';
 
 const getRocketsEndpoint = "https://api.spacexdata.com/v4/rockets"
 

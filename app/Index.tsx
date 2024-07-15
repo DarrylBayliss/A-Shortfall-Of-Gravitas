@@ -1,25 +1,18 @@
 import React, { useEffect, useState} from 'react';
-import { View, ActivityIndicator, StyleSheet, Alert } from "react-native";
-import { router } from 'expo-router';
+import { Rocket } from '../constants/Types';
+import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { useAsyncStorage } from '@react-native-async-storage/async-storage'
+import { useRouter } from 'expo-router';
 import RocketList from '@/components/RocketList';
 
 const getRocketsEndpoint = "https://api.spacexdata.com/v4/rockets"
-
-type Props = {
-  loading: boolean;
-  baseRockets?: [Rocket];
-};
-
-export type Rocket = {
-  name: String;
-  country: String;
-  flickr_images: [string]
-}
 
 const Index = ({ loading = false, baseRockets = [] }) => {
 
   const [isLoading, setLoading] = useState<Boolean>(loading);
   const [rockets, setRockets] = useState<Rocket[]>(baseRockets);
+  const { setItem } = useAsyncStorage('@storage_key');
+  const router = useRouter();
 
   const getRockets = async () => {
     try {
@@ -37,16 +30,9 @@ const Index = ({ loading = false, baseRockets = [] }) => {
     getRockets();
   }, []);
 
-  const createTwoButtonAlert = () =>
-    Alert.alert('Alert Title', 'My Alert Msg', [
-      {
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel',
-      },
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-    ]);
-
+  const writeItemToStorage = async (newValue : Rocket) => {
+    await setItem(JSON.stringify(newValue));
+  };
 
   return (
     <View style={styles.window}>
@@ -54,8 +40,10 @@ const Index = ({ loading = false, baseRockets = [] }) => {
         <ActivityIndicator />
       ) : <RocketList 
             rockets={rockets}
-            onItemClick= { () => router.push('/RocketDetail') }/> }
-    </View>
+            onItemClick= { (rocket) =>
+              writeItemToStorage(rocket).then(() => router.push('/RocketDetail'))
+            }/>
+          }</View>
   );
 }
 

@@ -1,10 +1,11 @@
 import React, { useEffect, useState} from 'react';
-import { View, ActivityIndicator, StyleSheet } from "react-native";
+import { View, ActivityIndicator, StyleSheet, Alert } from "react-native";
+import { router } from 'expo-router';
 import RocketList from '@/components/RocketList';
 
 const getRocketsEndpoint = "https://api.spacexdata.com/v4/rockets"
 
-export type Props = {
+type Props = {
   loading: boolean;
   baseRockets?: [Rocket];
 };
@@ -15,7 +16,7 @@ export type Rocket = {
   flickr_images: [string]
 }
 
-const RocketListScreen = ({ loading = false, baseRockets = [] }) => {
+const Index = ({ loading = false, baseRockets = [] }) => {
 
   const [isLoading, setLoading] = useState<Boolean>(loading);
   const [rockets, setRockets] = useState<Rocket[]>(baseRockets);
@@ -36,16 +37,26 @@ const RocketListScreen = ({ loading = false, baseRockets = [] }) => {
     getRockets();
   }, []);
 
+  const createTwoButtonAlert = () =>
+    Alert.alert('Alert Title', 'My Alert Msg', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+
+
   return (
     <View style={styles.window}>
       { isLoading ? (
         <ActivityIndicator />
       ) : <RocketList 
             rockets={rockets}
-            onItemClick= { () => console.log("") }/> }
+            onItemClick= { () => router.push('/RocketDetail') }/> }
     </View>
   );
-  //             navigation.push("Rocket Detail")
 }
 
 export const styles = StyleSheet.create({
@@ -56,4 +67,4 @@ export const styles = StyleSheet.create({
   }
 });
 
-export default RocketListScreen
+export default Index

@@ -1,5 +1,5 @@
 import { Text, View } from "react-native";
-import { styles } from "./RocketListScreen";
+import { styles } from "./Index";
 
 const getRocketLaunchesEndpoint = "https://api.spacexdata.com/v4/launches/query"
 
@@ -8,7 +8,7 @@ const RocketDetailScreen = () => {
     <View
       style={styles.window}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Text>Edit app/RocketDetailScreen.tsx to edit this screen.</Text>
     </View>
   );
 }

@@ -24,7 +24,7 @@ const RocketList : React.FC<Props> = ({rockets, onItemClick} ) => {
             contentFit="fill"
             transition={1000}/>
           <View style={styles.textColumn}>
-              <Text> {rocket.name} </Text>
+              <Text> {rocket.name + " (Engine Count: " + rocket.engines.number + ")"} </Text>
               <Text> {rocket.country} </Text>
           </View>
           </View>

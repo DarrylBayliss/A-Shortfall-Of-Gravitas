@@ -7,7 +7,7 @@ import RocketList from '@/components/RocketList';
 
 const getRocketsEndpoint = "https://api.spacexdata.com/v4/rockets"
 
-const Index = ({ loading = false, baseRockets = [] }) => {
+const index = ({ loading = false, baseRockets = [] }) => {
 
   const [isLoading, setLoading] = useState<Boolean>(loading);
   const [rockets, setRockets] = useState<Rocket[]>(baseRockets);
@@ -55,4 +55,4 @@ export const styles = StyleSheet.create({
   }
 });
 
-export default Index
+export default index

@@ -3,11 +3,11 @@ export type Rocket = {
     name: String;
     description: String;
     country: String;
-    engine: Engine;
+    engines: Engines;
     flickr_images: [string];
   }
   
-  export type Engine = {
+  export type Engines = {
     number: Number;
   }
 

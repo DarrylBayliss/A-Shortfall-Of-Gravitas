@@ -6,7 +6,7 @@ export default function Layout() {
   return (
       <Stack>
         <Stack.Screen
-          name="Index"
+          name="index"
           options={{title: 'Rockets'}}/>
       </Stack>
   );

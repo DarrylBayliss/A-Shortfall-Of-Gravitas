@@ -12,14 +12,18 @@ export type Rocket = {
   }
 
 export type Launch = {
-  id: String;
-  name: String;
-  date: Date;
-  success: Boolean
+  id: string;
+  name: string;
+  date_utc: string;
+  success: boolean
+  links: Links
+}
+
+export type Links = {
   patch: MissionPatch
 }
 
 export type MissionPatch = {
-  small: String;
-  large: String;
+  small: string;
+  large: string;
 }

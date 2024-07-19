@@ -1,8 +1,9 @@
 import React, { useEffect, useState} from 'react';
 import { Rocket, Launch } from '../constants/Types';
+import { Image } from 'expo-image';
 import { useAsyncStorage } from '@react-native-async-storage/async-storage'
-import { Text, View } from "react-native";
-import { styles } from "./Index";
+import { Text, View, StyleSheet } from "react-native";
+import LaunchesList from '@/components/LaunchesList';
 
 const getRocketLaunchesEndpoint = "https://api.spacexdata.com/v4/launches/query"
 
@@ -31,7 +32,7 @@ const RocketDetailScreen = ({ loading = false, } : { loading: Boolean }) => {
       });
 
       const json = await response.json();
-      setLaunches(json);
+      setLaunches(json.docs);
     } catch (error) {
       console.error(error);
     } finally {
@@ -44,14 +45,33 @@ const RocketDetailScreen = ({ loading = false, } : { loading: Boolean }) => {
     .then(() => getLaunches());
   }, []);
 
-  
-  const description = rocket?.description ?? "No Description Available"
-
   return (
     <View style={styles.window}>
-      <Text>{"Hello!"}</Text>
+      { rocket ?
+      <View>
+      <Image style={styles.image}
+            source={rocket.flickr_images[0]}
+            contentFit="fill"
+            transition={1000}/>
+        <Text>{rocket.description}</Text>
+        <LaunchesList launches={launches}/>
+      </View> : <Text>"Hello"</Text> }
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+    window: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: "center",
+      marginHorizontal: 16,
+    },
+    image: {
+      height: 200,
+      padding: 30,
+      marginVertical: 16,
+    }
+  });
 
 export default RocketDetailScreen

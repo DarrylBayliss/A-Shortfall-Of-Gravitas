@@ -1,6 +1,6 @@
 # A Shortfall of Gravitas
 
-![A Shortfall of Gravitas App Screen](/repo-images/AppScreen.png)
+![A Shortfall of Gravitas App Screen](/repo-images/AppScreen.gif)
 
 An app showing rocket launches using the [SpaceX REST Api](https://github.com/r-spacex/SpaceX-API). 
 
